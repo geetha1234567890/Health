@@ -18,3 +18,8 @@
 
   - name: Deploy Docker Container
     command: docker run -itd -p 8071:8082 geethgulabrathod/hc:1.0
+
+  - name: Fail task when the command error output prints FAILED
+    ansible.builtin.command: /usr/bin/example-command -x -y -z
+    register: command_result
+    failed_when: "'FAILED' in command_result.stderr"
